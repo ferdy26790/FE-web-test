@@ -1,10 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import axios from 'axios'
 import CurrencyListBox from '../CurrencyListBox';
 import CurrencyBox from '../CurrencyBox';
-import { lstat } from 'fs';
-
+import AddButton from '../AddCurrencyComponent/AddButton';
+import FormAddCurrency from '../AddCurrencyComponent/FormAddCurrency';
 let wrapped;
 
 beforeEach(() => {
@@ -20,6 +19,15 @@ beforeEach(() => {
 
 it('render curency box based on dataCurrencyRender length', () => {
   expect(wrapped.find(CurrencyBox).length).toEqual(1)
+})
+
+it('render button add more currencies', () => {
+  expect(wrapped.find(AddButton).text()).toEqual("(+) Add More Currencies")
+})
+
+it('render form input add currency when button add is clicked', () => {
+  wrapped.find(AddButton).simulate('click')
+  expect(wrapped.find(FormAddCurrency).length).toEqual(1)
 })
 
 describe('currencyBox Components', () => {
