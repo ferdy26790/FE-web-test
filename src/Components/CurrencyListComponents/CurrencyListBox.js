@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Grid } from 'react-bootstrap';
 import axios from 'axios';
-import CurrencyBox from './CurrencyBox'
-
+import CurrencyBox from './CurrencyBox';
+import AddButton from './AddCurrencyComponent/AddButton'
+import FormAddCurrency from './AddCurrencyComponent/FormAddCurrency';
 const CURRENCY_DETAIL = 
   {
     'IDR': 'Indonesian Rupiah',
@@ -22,9 +23,12 @@ class CurrencyListBox extends Component {
     super(props)
     this.state = {
       dataCurrenciesRender: [],
-      dataCurrenciesSupport: []
+      dataCurrenciesSupport: [],
+      isAdd: false
     }
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleClickAddButton = this.handleClickAddButton.bind(this)
+    this.handleSubmitAddCurrency = this.handleSubmitAddCurrency.bind(this)
   }
 
   componentWillMount(){
@@ -67,11 +71,41 @@ class CurrencyListBox extends Component {
     let newDataCurrenciesSupport = this.state.dataCurrenciesSupport.slice()
     let index = newDataCurrenciesRender.findIndex(currencyRender => currencyRender.currency === currencyDelete)
     let newDataCurrencySupport = newDataCurrenciesRender.splice(index,1)
-    newDataCurrenciesSupport.concat(newDataCurrencySupport)
+    newDataCurrenciesSupport = newDataCurrenciesSupport.concat(newDataCurrencySupport)
     this.setState({
       dataCurrenciesRender: newDataCurrenciesRender,
       dataCurrenciesSupport: newDataCurrenciesSupport
     })
+  }
+
+  handleClickAddButton(){
+    this.setState({
+      isAdd: true
+    })
+  }
+
+  handleSubmitAddCurrency(currencyInput){
+    let newDataCurrenciesRender = this.state.dataCurrenciesRender.slice()
+    let newDataCurrenciesSupport = this.state.dataCurrenciesSupport.slice()
+    let index = newDataCurrenciesSupport.findIndex(currencySupport => currencySupport.currency === currencyInput)
+    if(index === -1){
+      alert('currency not supported')
+    } else {
+      let newDataCurrencyRender = newDataCurrenciesSupport.splice(index, 1)
+      newDataCurrenciesRender = newDataCurrenciesRender.concat(newDataCurrencyRender)
+      this.setState({
+        dataCurrenciesRender: newDataCurrenciesRender,
+        dataCurrenciesSupport: newDataCurrenciesSupport,
+        isAdd: false
+      })
+    }
+  }
+
+  renderAdd(){
+    if(!this.state.isAdd){
+      return <AddButton handleClickAdd={this.handleClickAddButton}/>
+    }
+    return <FormAddCurrency handleSubmit={this.handleSubmitAddCurrency}/>
   }
 
   render() {
@@ -89,6 +123,7 @@ class CurrencyListBox extends Component {
               />
             })
           }
+          {this.renderAdd()}
       </Grid>
     );
   }
