@@ -87,7 +87,7 @@ class CurrencyListBox extends Component {
   handleSubmitAddCurrency(currencyInput){
     let newDataCurrenciesRender = this.state.dataCurrenciesRender.slice()
     let newDataCurrenciesSupport = this.state.dataCurrenciesSupport.slice()
-    let index = newDataCurrenciesSupport.findIndex(currencySupport => currencySupport.currency === currencyInput)
+    let index = newDataCurrenciesSupport.findIndex(currencySupport => currencySupport.currency === currencyInput.toUpperCase())
     if(index === -1){
       alert('currency not supported')
     } else {
