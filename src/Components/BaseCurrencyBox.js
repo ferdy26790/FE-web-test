@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Row, Col, FormControl } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 class BaseCurrencyBox extends Component{
   render(){

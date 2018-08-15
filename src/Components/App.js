@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormControl } from 'react-bootstrap'
 import BaseCurrencyBox from './BaseCurrencyBox'
+import CurrencyListBox from './CurrencyListComponents/CurrencyListBox';
 
 class App extends Component {
   constructor(){
@@ -20,6 +21,7 @@ class App extends Component {
           placeholder="input number here.."
         />
         <BaseCurrencyBox value={this.state.value}/>
+        <CurrencyListBox value={this.state.value}/>
       </div>
     );
   }
