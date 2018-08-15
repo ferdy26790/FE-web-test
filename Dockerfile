@@ -1,7 +1,6 @@
 FROM node:10.6.0
-WORKDIR ./src
-COPY package.json ./
+ENV NPM_CONFIG_LOGLEVEL warn
+COPY . .
 RUN npm install
-COPY . /src
-CMD npm start
-EXPOSE 3001
+RUN npm start
+EXPOSE 3000
